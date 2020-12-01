@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script src="./node_modules/axios/dist/axios.min.js"></script>
+    <script src="./node_modules/vue/dist/vue.min.js"></script>
+    <!-- Token: sk_8f8b7696acd0407a86e0d3cf0d09ef5e -->
+    <!-- uso: https://cloud.iexapis.com/stable/stock/aapl/quote?token=sk_8f8b7696acd0407a86e0d3cf0d09ef5e -->
+</head>
+
+<body class="container">
+    <div id="app" class="d-flex justify-content-center bg-primary flex-column rounded mt-5">
+        <div>
+            <p class="text-light font-weight-bold d-flex justify-content-center">Empresa: <span class="text-warning">{{companyName}}</span></p>
+            <p class="text-light font-weight-bold d-flex justify-content-center">Último valor: <span class="text-warning">{{latestPrice}}</span></p>
+            <p class="text-light font-weight-bold d-flex justify-content-center">Código: <span class="text-warning">{{symbol}}</span></p>
+        </div>
+        <div class="d-flex justify-content-center mb-3">
+            <button @click='verPreco'>
+                Ver preço
+            </button>
+        </div>
+    </div>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                companyName: '',
+                symbol: '',
+                latestPrice: '',
+            },
+            methods: {
+                async verPreco() {
+                    let { data } = await axios.get('https://cloud.iexapis.com/stable/stock/aapl/quote?token=sk_8f8b7696acd0407a86e0d3cf0d09ef5e');
+                    let { companyName, symbol, latestPrice } = data;
+                    this.companyName = companyName;
+                    this.symbol = symbol;
+                    this.latestPrice = latestPrice;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

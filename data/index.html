@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="node_modules/vue/dist/vue.min.js"></script>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
+
+<body class="container d-flex h-100">
+    <div id='app' class="bg-primary text-light font-weight-bold rounded mx-auto p-3 mt-5">
+        <p>Digite o lado do quadrado</p>
+        <input
+            class="form-control"
+            type="number" 
+            placeholder="Lado do quadrado" 
+            v-model="lado">
+        <div>
+            <div>
+                <p class='d-flex justify-content-center mt-3'>Área do quadrado é
+                <div class='d-flex justify-content-center'>
+                    <span class='text-warning'> {{lado*lado}} </span>
+                </div>
+                </p>
+            </div>
+
+        </div>
+        <div class="center">
+            <p>Perímetro do quadrado é
+            <div class='d-flex justify-content-center'>
+                <span class='text-warning'> {{lado*4}} </span>
+            </div>
+            </p>
+        </div>
+
+    </div>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                lado: ''
+            }
+        })
+    </script>
+</body>
+
+
+
+</html>

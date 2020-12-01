@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script src="./node_modules/vue/dist/vue.min.js"></script>
+    <script src="./node_modules/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <!-- https://cloud.iexapis.com/stable/stock/aapl/quote?token=sk_8f8b7696acd0407a86e0d3cf0d09ef5e -->
+    <!-- https://cloud.iexapis.com/stable/stock/googl/quote?token=sk_8f8b7696acd0407a86e0d3cf0d09ef5e -->
+
+    <div id="app">
+        <div class="companies d-flex container mt-3">
+            <div class="company mr-3">
+                <p>
+                    Nome da empresa: <span>{{aapl.companyName}}</span>
+                </p>
+                <p>
+                    Valor de mercado: <span>{{aapl.marketCap}}</span>
+                </p>
+            </div>
+            <div class="company">
+                <p>
+                    Nome da empresa: <span>{{googl.companyName}}</span>
+                </p>
+                <p>
+                    Valor de mercado: <span>{{googl.marketCap}}</span>
+                </p>
+            </div>
+        </div>
+        <div class='container'>
+            <button class='btn btn-primary' @click='pushContent'>Puxar dados</button>
+        </div>
+    </div>
+    <style>
+        .verde {
+            color: green;
+        }
+
+        .vermelho {
+            color: red;
+        }
+    </style>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                aapl: {
+                    marketCap: 0,
+                    companyName: ''
+                },
+                googl: {
+                    marketCap: 0,
+                    companyName: ''
+                }
+            },
+            methods: {
+                async getCompanyApple() {
+                    let { data } = await axios.get(`https://cloud.iexapis.com/stable/stock/aapl/quote?token=sk_8f8b7696acd0407a86e0d3cf0d09ef5e`);
+                    this.aapl.marketCap = data.marketCap;
+                    this.aapl.companyName = data.companyName;
+                },
+                async getCompanyGoogle() {
+                    let { data } = await axios.get(`https://cloud.iexapis.com/stable/stock/googl/quote?token=sk_8f8b7696acd0407a86e0d3cf0d09ef5e`);
+                    this.googl.marketCap = data.marketCap;
+                    this.googl.companyName = data.companyName;
+                },
+                pushContent() {
+                    this.getCompanyApple(), this.getCompanyGoogle()
+                },
+
+                compare() {
+                    this.aapl.marketCap > this.googl.marketCap ?
+                        aapl.cor === 'verde'
+                    
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
