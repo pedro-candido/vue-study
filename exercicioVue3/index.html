@@ -16,9 +16,13 @@
 
     <div id="app">
         <div class="companies d-flex container mt-3">
+            <div class='container'>
+                <button class='btn btn-primary' @click='pushContent'>Puxar dados</button>
+            </div>
             <div class="company mr-3">
                 <p>
-                    Nome da empresa: <span>{{aapl.companyName}}</span>
+                    Nome da empresa: <span
+                    v-bind:class="aapl.marketCap > googl.marketCap ? verde : vermelho">{{aapl.companyName}}</span>
                 </p>
                 <p>
                     Valor de mercado: <span>{{aapl.marketCap}}</span>
@@ -26,23 +30,21 @@
             </div>
             <div class="company">
                 <p>
-                    Nome da empresa: <span>{{googl.companyName}}</span>
+                    Nome da empresa: <span
+                        v-bind:class="googl.marketCap > aapl.marketCap ? verde : vermelho">{{googl.companyName}}</span>
                 </p>
                 <p>
                     Valor de mercado: <span>{{googl.marketCap}}</span>
                 </p>
             </div>
         </div>
-        <div class='container'>
-            <button class='btn btn-primary' @click='pushContent'>Puxar dados</button>
-        </div>
     </div>
     <style>
-        .verde {
+        .green {
             color: green;
         }
 
-        .vermelho {
+        .red {
             color: red;
         }
     </style>
@@ -52,12 +54,16 @@
             data: {
                 aapl: {
                     marketCap: 0,
-                    companyName: ''
+                    companyName: '',
+                    greatest: false,
                 },
                 googl: {
                     marketCap: 0,
-                    companyName: ''
-                }
+                    companyName: '',
+                    greatest: false
+                },
+                verde: 'green',
+                vermelho: 'red'
             },
             methods: {
                 async getCompanyApple() {
@@ -73,12 +79,6 @@
                 pushContent() {
                     this.getCompanyApple(), this.getCompanyGoogle()
                 },
-
-                compare() {
-                    this.aapl.marketCap > this.googl.marketCap ?
-                        aapl.cor === 'verde'
-                    
-                }
             }
         })
     </script>

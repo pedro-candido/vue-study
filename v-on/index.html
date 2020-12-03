@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script src="node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app" class="container">
+        <div>
+
+            <p>{{contador}}</p>
+            <button @click="contador++">
+                Somar
+            </button>
+            <button @click="contador > 0 ? contador-- : 0">
+                Diminuir
+            </button>
+            <br>
+            <br>
+        </div>
+        <button v-on:click="handleClick">Clique aqui v-on</button>
+        <button @click="handleClick">Clique aqui @click</button>
+
+        <button @click="ativo = !ativo">
+            Toggle
+        </button>
+        {{ativo}}
+
+        <a 
+            href="#interno" 
+            @click.prevent="handleClick"
+        >Link Interno</a>
+        <a 
+            href="#interno" 
+            @click.prevent.once="handleClick">Link Interno com o once</a>
+
+        <input 
+            type="text" 
+            name="" 
+            id=""
+            @keyup.enter="handleKey"
+        />
+
+        <p @mousemove="handleClick">
+            Teste x:
+        </p>
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data:{
+                testText: 'Hello World',
+                contador: 0,
+                ativo: true,
+            },
+            methods:{
+                handleClick(event){
+                    console.log(event)
+                },
+                handleKey(event){
+                    console.log(event.target.value)
+                }
+            }
+
+        })
+
+    </script>
+</body>
+</html>
