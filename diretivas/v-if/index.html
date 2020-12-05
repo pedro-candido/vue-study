@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script src="./node_modules/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <template>
+            <div v-if="logado">Conteúdo usando v-if | Troca o conteúdo por um comentário</div>
+            <div v-show="logado">Conteúdo usando v-show | Esconde usando d-none</div>
+        </template>
+        <template v-if="logado === true">
+            <p>Usuário logado</p>
+            <button class="toggle" @click="logado = false">
+                Deslogar
+            </button>
+        </template>
+
+        <template v-else>
+            <p>Usuário deslogado</p>
+            <button class="toggle" @click="logado = true">
+                Logar
+            </button>
+        </template>
+    </div>
+    <script>
+
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                logado: true
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script src="node_modules/axios/dist/axios.min.js"></script>
+    <script src="node_modules/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li>
+                <a href="https://cloud.iexapis.com/stable/stock/aapl/quote?token=sk_8f8b7696acd0407a86e0d3cf0d09ef5e"
+                    @click.prevent="getCompany">
+                    Apple
+                </a>
+            </li>
+            <li>
+                <a href="https://cloud.iexapis.com/stable/stock/googl/quote?token=sk_8f8b7696acd0407a86e0d3cf0d09ef5e"
+                    @click.prevent="getCompany">
+                    Google
+                </a>
+            </li>
+            <li>
+                <a href="https://cloud.iexapis.com/stable/stock/amzn/quote?token=sk_8f8b7696acd0407a86e0d3cf0d09ef5e"
+                    @click.prevent="getCompany">
+                    Amazon
+                </a>
+            </li>
+            <li>
+                <a href="https://cloud.iexapis.com/stable/stock/ebay/quote?token=sk_8f8b7696acd0407a86e0d3cf0d09ef5e"
+                    @click.prevent="getCompany">
+                    Ebay
+                </a>
+            </li>
+            <li>
+                <a href="https://cloud.iexapis.com/stable/stock/pypl/quote?token=sk_8f8b7696acd0407a86e0d3cf0d09ef5e"
+                    @click.prevent="getCompany">
+                    Paypal
+                </a>
+            </li>
+        </ul>
+
+        <div class="company">
+            <p>{{companyName}}</p>
+            <p>{{marketCap}}</p>
+            <p>{{latestPrice}}</p>
+        </div>
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                companyName: '',
+                latestPrice: '',
+                marketCap: '',
+            },
+            methods: {
+                async getCompany(event) {
+                    let { data } = await axios.get(event.currentTarget.href);
+                    let { companyName, latestPrice, marketCap } = data;
+                    this.companyName = companyName;
+                    this.latestPrice = latestPrice;
+                    this.marketCap = marketCap;
+                }
+            }
+
+        })
+    </script>
+</body>
+
+</html>

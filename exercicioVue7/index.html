@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script src="./node_modules/axios/dist/axios.min.js"></script>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="getClass">Cursos</button>
+            <div v-for="item in cursos">
+                <h3><a :href="item.link">{{item.curso}}</a></h3>
+                <ul v-for="aulas in item.aulas">
+                    <li>{{aulas.nome}} : <span>{{aulas.tempo}}</span></li>
+                </ul>
+            </div>
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                cursos:{}
+            },
+            methods: {
+                async getClass() {
+                    let {data} = await axios.get('./cursos.json')
+                    this.cursos = data
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

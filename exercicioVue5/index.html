@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script src="./node_modules/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <template>
+            <p>Produto: <span>{{produto}}</span></p>
+            <p>Estoque: <span>{{estoque}}</span></p>
+            <p>{{estoque == 0 ? message = 'Produto esgotou' : message='Produto em estoque'}}</p>
+            <p>{{qtd}}</p>
+
+            <button @click="addToCart" v-if="estoque !== 0">
+                Adicionar ao Carrinho
+            </button>
+            <button @click="removeFromCart" v-if="estoque !== 7">
+                Remover do Carrinho
+            </button>
+        </template>
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                produto: "Iphone 11",
+                estoque: 7,
+                qtd: 0,
+                message: 'Produto em estoque',
+            },
+            methods:{
+                addToCart(event){
+                    console.log(event)
+                    if(this.estoque > 0) this.estoque--, this.qtd++
+                },
+                removeFromCart(){
+                    this.qtd !== 0 ? this.qtd-- && this.estoque++ : null
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
